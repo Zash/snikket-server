@@ -69,6 +69,9 @@ modules_enabled = {
 		"websocket"; -- XMPP over WebSockets
 		"http_host_status_check"; -- Health checks over HTTP
 
+	-- Web client
+		"conversejs";
+
 	-- Other specific functionality
 		"limits"; -- Enable bandwidth limiting for XMPP connections
 		"watchregistrations"; -- Alert admins of registrations
@@ -229,6 +232,7 @@ VirtualHost (DOMAIN)
 		landing_page = "/";
 		invites_page = "/invite";
 		invites_register = "/register";
+		conversejs = "/app";
 	}
 
 	if ENV_SNIKKET_TWEAK_PROMETHEUS == "1" then
