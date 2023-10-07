@@ -14,7 +14,7 @@ ADD docker/entrypoint.sh /bin/entrypoint.sh
 RUN chmod 770 /bin/entrypoint.sh
 ENTRYPOINT ["/bin/entrypoint.sh"]
 
-HEALTHCHECK CMD /usr/bin/prosodyctl shell "portcheck ${SNIKKET_TWEAK_INTERNAL_HTTP_INTERFACE:-127.0.0.1}:${SNIKKET_TWEAK_INTERNAL_HTTP_PORT:-5280}"
+HEALTHCHECK CMD /usr/bin/curl -sSf -o /dev/null "http://${SNIKKET_TWEAK_INTERNAL_HTTP_INTERFACE:-127.0.0.1}:${SNIKKET_TWEAK_INTERNAL_HTTP_PORT:-5280}/health"
 
 ADD ansible /opt/ansible
 
@@ -26,6 +26,7 @@ RUN apt-get update \
         gpg gpg-agent \
         ansible python3-passlib \
         libcap2-bin build-essential\
+        curl \
     && c_rehash \
     && ansible-playbook -c local -i localhost, --extra-vars "ansible_python_interpreter=/usr/bin/python3" /opt/ansible/snikket.yml \
     && apt-get remove --purge -y \
