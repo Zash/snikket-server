@@ -161,3 +161,14 @@
     name: dns-root-data
     state: present
     install_recommends: no
+- name: Download LuaSQLite3
+  get_url:
+    url: http://lua.sqlite.org/index.cgi/zip/lsqlite3_v096.zip?uuid=v0.9.6
+    dest: /tmp/lsqlite3_v096.zip
+    checksum: sha256:11aed1f9622ae43f8c1473cfddc7cd841c534cbb3bfa27d41d99e2fa8f8c7a48
+- name: Unpack LuaSQLite3
+  unarchive:
+    creates: /tmp/lsqlite3_v096
+    src: /tmp/lsqlite3_v096.zip
+    dest: /tmp/
+    remote_src: true
